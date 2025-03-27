@@ -15,14 +15,14 @@ from {{ stub_module }} import {{ stub_name }}
 {% endif %}
 
 
-class SomeState(TypedDict):
+class {{ state_name }}(TypedDict):
     # define your attributes here
     foo: str
 
 
 # Define stand-alone functions
 {% for node in nodes %}
-def {{ node.id }}(state: SomeState) -> dict:
+def {{ node.id }}(state: {{ state_name }}) -> dict:
     print("In node: {{ node.name }}")
     return {
         # Add your state update logic here
@@ -31,14 +31,14 @@ def {{ node.id }}(state: SomeState) -> dict:
 
 {% endfor %}
 {% for edge in edges if edge.condition is defined %}
-def {{ edge.condition }}(state: SomeState) -> str:
+def {{ edge.condition }}(state: {{ state_name }}) -> str:
     print("In condition: {{ edge.condition }}")
     raise NotImplementedError("Implement me.")
 
 
 {% endfor %}
 agent = {{ stub_name }}(
-    state_schema=SomeState,
+    state_schema={{ state_name }},
     impl=[
     {% for node in nodes %}
         ("{{ node.id }}", {{ node.id }}),

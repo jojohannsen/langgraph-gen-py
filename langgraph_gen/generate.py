@@ -142,6 +142,9 @@ def generate_from_spec(
             else:
                 stub_name = spec["name"]
 
+            # Get state name from spec or use default
+            state_name = spec.get("state", "SomeState")
+
             code = template.render(
                 stub_name=stub_name,
                 nodes=spec["nodes"],
@@ -149,6 +152,7 @@ def generate_from_spec(
                 entrypoint=spec.get("entrypoint", None),
                 version=__version__,
                 stub_module=stub_module,
+                state_name=state_name,
             )
             generated.append(code)
         except jinja2.TemplateError as e:

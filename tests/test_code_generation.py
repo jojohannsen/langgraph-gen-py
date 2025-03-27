@@ -98,6 +98,7 @@ def test_generate_from_yaml_typescript() -> None:
 THREE_NODE_SEQUENCE_YAML = """\
 # agent_graph.yaml
 entrypoint: node1
+state: MySpecialState
 nodes:
   - name: node1
   - name: node2
@@ -118,6 +119,8 @@ def test_stub_and_implementation() -> None:
         language="python",
         templates=["stub", "implementation"],
     )
+    # expect custom state to be used
+    assert "class MySpecialState" in impl
     # Try to parse the ast to verify it works
     ast.parse(stub)
     ast.parse(impl)
@@ -135,6 +138,7 @@ def test_stub_and_implementation() -> None:
     exec(stub, globals_dict)
 
     exec(impl, globals_dict)
+    assert globals_dict['MySpecialState']
 
 
 NON_MACHINE_FRIENDLY_NAMES_YAML = """\
