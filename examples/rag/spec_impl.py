@@ -1,4 +1,4 @@
-"""This file was generated using `langgraph-gen` version 0.0.4.
+"""This file was generated using `langgraph-gen` version 0.0.6.
 
 This file provides a placeholder implementation for the corresponding stub.
 
@@ -17,17 +17,18 @@ class SomeState(TypedDict):
 
 # Define stand-alone functions
 def retrieve(state: SomeState) -> dict:
-    print("In node: retrieve")
+    print("Node: retrieve (NOT IMPLEMENTED)")
     return {
         # Add your state update logic here
     }
 
 
 def generate(state: SomeState) -> dict:
-    print("In node: generate")
+    print("Node: generate (NOT IMPLEMENTED)")
     return {
         # Add your state update logic here
     }
+
 
 
 agent = RagWorkflow(
