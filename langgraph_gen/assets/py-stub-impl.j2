@@ -23,7 +23,7 @@ class SomeState(TypedDict):
 # Define stand-alone functions
 {% for node in nodes %}
 def {{ node.id }}(state: SomeState) -> dict:
-    print("In node: {{ node.name }}")
+    print("Node: {{ node.name }} (NOT IMPLEMENTED)")
     return {
         # Add your state update logic here
     }
@@ -31,12 +31,29 @@ def {{ node.id }}(state: SomeState) -> dict:
 
 {% endfor %}
 {% for edge in edges if edge.condition is defined %}
-def {{ edge.condition }}(state: SomeState) -> str:
-    print("In condition: {{ edge.condition }}")
-    raise NotImplementedError("Implement me.")
-
-
+def {{ edge.condition }}(state: dict) -> str:
+    """Condition for {{ edge.from }} → {{ edge.paths|join(', ') }}"""
+    print("Edge Condition: {{ edge.condition }} (NOT IMPLEMENTED)")
+    print("\n  Available paths:")
+    {% if edge.paths is mapping %}
+    paths = [{% for key, _ in edge.paths.items() %}"{{ key }}", {% endfor %}]
+    {% else %}
+    paths = [{% for path in edge.paths %}"{{ path }}", {% endfor %}]
+    {% endif %}
+        
+    for i, path in enumerate(paths, 1):
+        print(f"  {i}. {path}")
+            
+    while True:
+        try:
+            choice = int(input("\n  Select a path (enter number): "))
+            if 1 <= choice <= len(paths):
+                return paths[choice - 1]
+            print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Please enter a valid number.")
 {% endfor %}
+
 agent = {{ stub_name }}(
     state_schema=SomeState,
     impl=[
