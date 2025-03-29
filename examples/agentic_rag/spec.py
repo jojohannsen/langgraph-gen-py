@@ -11,7 +11,7 @@ Usage:
 Below is a sample implementation of the generated stub:
 
 ```python
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
 
 from spec import AgenticRag
 
@@ -48,7 +48,7 @@ def generate(state: SomeState) -> dict:
     }
 
 
-def is_relevant(state: SomeState) -> str:
+def is_relevant(state: dict) -> Literal["rewrite", "generate", ]:
     print("In condition: is_relevant")
     raise NotImplementedError("Implement me.")
 

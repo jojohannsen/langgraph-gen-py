@@ -5,7 +5,7 @@ This file provides a placeholder implementation for the corresponding stub.
 Replace the placeholder implementation with your own logic.
 """
 
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
 
 from spec import AgenticRag
 
@@ -17,50 +17,38 @@ class SomeState(TypedDict):
 
 # Define stand-alone functions
 def agent(state: SomeState) -> dict:
-    print("Node: agent (NOT IMPLEMENTED)")
+    print("In node: agent")
     return {
         # Add your state update logic here
     }
 
 
 def retrieve(state: SomeState) -> dict:
-    print("Node: retrieve (NOT IMPLEMENTED)")
+    print("In node: retrieve")
     return {
         # Add your state update logic here
     }
 
 
 def rewrite(state: SomeState) -> dict:
-    print("Node: rewrite (NOT IMPLEMENTED)")
+    print("In node: rewrite")
     return {
         # Add your state update logic here
     }
 
 
 def generate(state: SomeState) -> dict:
-    print("Node: generate (NOT IMPLEMENTED)")
+    print("In node: generate")
     return {
         # Add your state update logic here
     }
 
 
-def is_relevant(state: dict) -> str:
+def is_relevant(state: dict) -> Literal["rewrite", "generate", ]:
     """Condition for retrieve → rewrite, generate"""
-    print("Edge Condition: is_relevant (NOT IMPLEMENTED)")
-    print("\n  Available paths:")
-    paths = ["rewrite", "generate", ]
-        
-    for i, path in enumerate(paths, 1):
-        print(f"  {i}. {path}")
-            
-    while True:
-        try:
-            choice = int(input("\n  Select a path (enter number): "))
-            if 1 <= choice <= len(paths):
-                return paths[choice - 1]
-            print("Invalid choice. Please try again.")
-        except ValueError:
-            print("Please enter a valid number.")
+    print("In condition: is_relevant")
+    raise NotImplementedError("Implement me.")
+
 
 agent = AgenticRag(
     state_schema=SomeState,

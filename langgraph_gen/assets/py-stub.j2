@@ -11,7 +11,7 @@ Usage:
 Below is a sample implementation of the generated stub:
 
 ```python
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
 
 {% if stub_module %}
 from {{ stub_module }} import {{ stub_name }}
@@ -35,7 +35,7 @@ def {{ node.id }}(state: SomeState) -> dict:
 
 {% endfor %}
 {% for edge in edges if edge.condition is defined %}
-def {{ edge.condition }}(state: SomeState) -> str:
+def {{ edge.condition }}(state: dict) -> Literal[{% for path in edge.paths %}"{{ path }}", {% endfor %}]:
     print("In condition: {{ edge.condition }}")
     raise NotImplementedError("Implement me.")
 

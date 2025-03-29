@@ -5,7 +5,7 @@ This file provides a placeholder implementation for the corresponding stub.
 Replace the placeholder implementation with your own logic.
 """
 
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
 
 {% if stub_module %}
 from {{ stub_module }} import {{ stub_name }}
@@ -23,7 +23,7 @@ class SomeState(TypedDict):
 # Define stand-alone functions
 {% for node in nodes %}
 def {{ node.id }}(state: SomeState) -> dict:
-    print("Node: {{ node.name }} (NOT IMPLEMENTED)")
+    print("In node: {{ node.name }}")
     return {
         # Add your state update logic here
     }
@@ -31,29 +31,13 @@ def {{ node.id }}(state: SomeState) -> dict:
 
 {% endfor %}
 {% for edge in edges if edge.condition is defined %}
-def {{ edge.condition }}(state: dict) -> str:
+def {{ edge.condition }}(state: dict) -> Literal[{% for path in edge.paths %}"{{ path }}", {% endfor %}]:
     """Condition for {{ edge.from }} → {{ edge.paths|join(', ') }}"""
-    print("Edge Condition: {{ edge.condition }} (NOT IMPLEMENTED)")
-    print("\n  Available paths:")
-    {% if edge.paths is mapping %}
-    paths = [{% for key, _ in edge.paths.items() %}"{{ key }}", {% endfor %}]
-    {% else %}
-    paths = [{% for path in edge.paths %}"{{ path }}", {% endfor %}]
-    {% endif %}
-        
-    for i, path in enumerate(paths, 1):
-        print(f"  {i}. {path}")
-            
-    while True:
-        try:
-            choice = int(input("\n  Select a path (enter number): "))
-            if 1 <= choice <= len(paths):
-                return paths[choice - 1]
-            print("Invalid choice. Please try again.")
-        except ValueError:
-            print("Please enter a valid number.")
-{% endfor %}
+    print("In condition: {{ edge.condition }}")
+    raise NotImplementedError("Implement me.")
 
+
+{% endfor %}
 agent = {{ stub_name }}(
     state_schema=SomeState,
     impl=[

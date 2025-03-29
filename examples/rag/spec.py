@@ -11,7 +11,7 @@ Usage:
 Below is a sample implementation of the generated stub:
 
 ```python
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
 
 from spec import RagWorkflow
 
